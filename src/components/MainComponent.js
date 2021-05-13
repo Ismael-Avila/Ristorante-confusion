@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
-import Menu from './MenuComponent';
 import {DISHES} from '../shared/dishes';
-import DishDetail from './dishDetailComponent';
+import Menu from './MenuComponent';
+import DishDetail from './DishDetailComponent';
+import Header from "./HeaderComponent"
+import Footer from "./FooterComponent"
+
 
 /*So that, the main component is now responsible fore verything related to
 the state of my application*/
@@ -27,13 +29,10 @@ class Main extends Component{
   render(){
     return(
       <div className="App">
-        <Navbar dark color="primary">
-          <div className="container">
-            <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
-          </div>
-        </Navbar>
+        <Header/>
         <Menu dishes={this.state.dishes} selected={(dishId)=>this.onDishSelect(dishId)}/>
         <DishDetail dish ={this.state.dishes.filter((dish_p) => dish_p.id === this.state.selectedDish)[0]}/>
+        <Footer/>
       </div>
     );
     
