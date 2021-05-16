@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';   //To nav between diferent views
 import {DISHES} from '../shared/dishes';
 import Menu from './MenuComponent';
 import DishDetail from './DishDetailComponent';
 import Header from "./HeaderComponent"
 import Footer from "./FooterComponent"
+import Home from "./HomeComponent"
 
 
 /*So that, the main component is now responsible fore verything related to
@@ -15,23 +17,19 @@ class Main extends Component{
 
     this.state = {
       dishes:DISHES,
-      selectedDish: null,
     };
-  }
+  } 
 
-  //Function to change state for this class
-  onDishSelect(dishId_  ) {
-    this.setState({ selectedDish: dishId_});
-    //console.log(dishId_, "papu")
-  }
-
-
+  //<Menu dishes={this.state.dishes} selected={(dishId)=>this.onDishSelect(dishId)}/>
   render(){
     return(
       <div className="App">
         <Header/>
-        <Menu dishes={this.state.dishes} selected={(dishId)=>this.onDishSelect(dishId)}/>
-        <DishDetail dish ={this.state.dishes.filter((dish_p) => dish_p.id === this.state.selectedDish)[0]}/>
+        <Switch>
+          <Route path='/home' component={()=><Home/>} />
+          <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
+          <Redirect to="/home" />
+        </Switch>
         <Footer/>
       </div>
     );
