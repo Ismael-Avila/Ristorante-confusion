@@ -20,13 +20,14 @@ function RenderDish({dish}){
 
 }
 
-function RenderComments({dish}){
-	if(dish.comments.length !== 0){
+function RenderComments({comments}){
+	console.log(comments)
+	if(comments != null){
 			return(
 				<div className="col-12 col-md-5 m-1">
 					<h4>Comments</h4>
 					<ul className = "list-unstyled">
-						{dish.comments.map((comment)=>{
+						{comments.map((comment)=>{
 							return(
 								<div>
 									<li key={comment.id}>
@@ -52,25 +53,22 @@ function RenderComments({dish}){
 }
 
 const DishDetail = (props)=>{
-	console.log("DishDetail Component render invoked");
 		
-		if(props.dish != null){
-			return(
-			<div class = "container">
-				<div className="row">
-					<RenderDish dish ={props.dish}/>
-					<RenderComments dish ={props.dish}/>
-				</div>
-			</div>
+	if(props.dish != null){
+		return(
+		<div className="row">
+			<RenderDish dish ={props.dish}/>
+			<RenderComments comments ={props.comments.filter((comment)=> comment.dishId === props.dish.id)}/>
+		</div>
 
-			);
-		}
+		);
+	}
 
-		else{
-			return(
-	          <div></div>
-	        );
-		}
+	else{
+		return(
+          <div></div>
+        );
+	}
 
 }
 export default DishDetail;

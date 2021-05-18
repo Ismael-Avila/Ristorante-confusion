@@ -44,7 +44,7 @@ export const COMMENTS =
     id: 5,
     dishId: 1,
     rating: 5,
-    comment: "Imagine all the eatables, living in conFusion!",
+    comment: "Hello there!",
     author: "John Lemon",
     date: "2012-10-16T17:57:28.556094Z"
   },
@@ -116,7 +116,7 @@ export const COMMENTS =
     id: 14,
     dishId: 2,
     rating: 2,
-    comment: "It's your birthday, we're gonna party!",
+    comment: "we're gonna party!",
     author: "25 Cent",
     date: "2011-12-02T17:57:28.556094Z"
   },
@@ -148,7 +148,7 @@ export const COMMENTS =
     id: 18,
     dishId: 3,
     rating: 4,
-    comment: "Ultimate, Reaching for the stars!",
+    comment: "Are you the new number six?",
     author: "Ringo Starry",
     date: "2013-12-02T17:57:28.556094Z"
   },

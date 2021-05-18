@@ -1,48 +1,56 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
+import DishDetail from './DishDetailComponent'
 
-function RenderMenuItem({dish, selectedDishFunction}){
-  return(
-    <Card key={dish.id} onClick={()=>selectedDishFunction(dish.id)}>
-      <CardImg width="100%" src={dish.image} alt={dish.name} />
-      <CardImgOverlay>
-        <CardTitle>{dish.name}</CardTitle>
-      </CardImgOverlay>
-    </Card>
+class Menu extends Component{
 
-  );
-}
+  constructor(props){
+    super(props);
 
-/*
-  In this function you're receiving data from MainComponent.js when this function is
-  called.
-*/
-const Menu = (props) =>{
-  //Main function to render
-  //The third part of a component: Return a part of the DOM
+    this.state = {
+      selectedDish:null,
+    };
+  }
 
-  console.log("Menu Component render invoked");
-  //<RenderMenuItem dish={dish} selectedDish={props.selected}/>
-  //<RenderMenuItem tranfered_data passed_function_from MainComponent/>
-  const menu = props.dishes.map((dish) => {
-    return (
-      <div  className="col-12 col-md-5 m-1">
-        <RenderMenuItem dish={dish} selectedDishFunction={props.selected}/>
+  selectedDishFunction(selectedDish){
+    this.setState({
+      selectedDish: selectedDish
+    });
+
+  }
+
+  RenderMenuItem(dish){
+    return(
+      <Card key={dish.id} onClick={()=>this.selectedDishFunction(dish)}>
+        <CardImg width="100%" src={dish.image} alt={dish.name} />
+        <CardImgOverlay>
+          <CardTitle>{dish.name}</CardTitle>
+        </CardImgOverlay>
+      </Card>
+    );
+
+  }
+
+  render(){
+    const menu = this.props.dishes.map((dish) => {
+      return (
+        <div  className="col-12 col-md-5 m-1">
+          {this.RenderMenuItem(dish)}
+        </div>
+      );
+    });
+
+
+    return(
+      <div className="container">
+        <div className="row">
+          {menu}
+        </div>
+        < DishDetail dish = {this.state.selectedDish} comments = {this.props.comments}/>
       </div>
     );
-  });
-
-
-
-  return (
-    <div className="container">
-      <div className="row">
-        {menu}
-      </div>
-    </div>
-  );
-
-
+  }
 }
+
 
 export default Menu;

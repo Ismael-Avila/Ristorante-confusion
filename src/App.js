@@ -5,6 +5,7 @@ import {BrowserRouter} from 'react-router-dom'
 
 class App extends Component{
 
+	//Here, you're saying The menu page will use BrowRouter
 
   render(){
     return(

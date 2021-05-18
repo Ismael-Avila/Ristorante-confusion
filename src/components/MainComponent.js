@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+
 import { Switch, Route, Redirect } from 'react-router-dom';   //To nav between diferent views
+
 import {DISHES} from '../shared/dishes';
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
@@ -25,9 +27,7 @@ class Main extends Component{
       promotions: PROMOTIONS,
       leaders: LEADERS
     };
-  } 
-
-  //<Menu dishes={this.state.dishes} selected={(dishId)=>this.onDishSelect(dishId)}/>
+  }
 
   /*
   Note:
@@ -53,7 +53,8 @@ class Main extends Component{
             promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
             leader={this.state.leaders.filter((leader) => leader.featured)[0]}
           />} />
-          <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
+          <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes}
+          comments={this.state.comments} />} />
           <Route exact path='/contactus' component={Contact}/>
           <Redirect to="/home" />
         </Switch>
