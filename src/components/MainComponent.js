@@ -13,6 +13,7 @@ import Header from "./HeaderComponent"
 import Footer from "./FooterComponent"
 import Home from "./HomeComponent"
 import Contact from "./ContactComponent"
+import About from "./AboutComponent"
 
 
 /*So that, the main component is now responsible fore verything related to
@@ -70,6 +71,8 @@ class Main extends Component{
             promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
             leader={this.state.leaders.filter((leader) => leader.featured)[0]}
           />} />
+
+          <Route path="/aboutus" component={()=><About leaders={this.state.leaders}/>} />
 
           <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes}
           comments={this.state.comments} />} />
