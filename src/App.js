@@ -12,6 +12,11 @@ class App extends Component{
 
 	//Here, you're saying The menu page will use BrowRouter
 
+  /*
+  That's it. So, when I do this, my Store, React Store becomes
+  available to all the components within my React application. 
+  */
+
   render(){
     return(
       <Provider store={store}>
