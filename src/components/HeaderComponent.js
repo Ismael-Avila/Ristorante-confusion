@@ -71,47 +71,47 @@ class Header extends Component {
 				</div>
 			</Navbar>
 
-		<Jumbotron>
-			<div className="container">
-				<div className="row row-header">
-					<div className="col-12 col-sm-6">
-						<h1>Ristorante con Fusion</h1>
+			<Jumbotron>
+				<div className="container">
+					<div className="row row-header">
+						<div className="col-12 col-sm-6">
+							<h1>Ristorante con Fusion</h1>
 
-						<p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
+							<p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
+						</div>
 					</div>
 				</div>
-			</div>
-		</Jumbotron>
+			</Jumbotron>
 
-		<Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-			<ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
-			<ModalBody>
-				<Form onSubmit={this.handleLogin}>
-					<FormGroup>
-						<Label htmlFor="username">Username</Label>
-						<Input type="text" id="username" name="username"
-							innerRef={(input) => this.password = input} />
-					</FormGroup>
+			<Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+				<ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
+				<ModalBody>
+					<Form onSubmit={this.handleLogin}>
+						<FormGroup>
+							<Label htmlFor="username">Username</Label>
+							<Input type="text" id="username" name="username"
+								innerRef={(input) => this.password = input} />
+						</FormGroup>
 
-					<FormGroup>
-						<Label htmlFor="password">Password</Label>
-						<Input type="password" id="password" name="password"
-							innerRef={(input) => this.password = input}  />
-					</FormGroup>
+						<FormGroup>
+							<Label htmlFor="password">Password</Label>
+							<Input type="password" id="password" name="password"
+								innerRef={(input) => this.password = input}  />
+						</FormGroup>
 
-					<FormGroup check>
-						<Label check>
-							<Input type="checkbox" name="remember"
-								innerRef={(input) => this.remember = input}  />
-							Remember me
-						</Label>
-					</FormGroup>
+						<FormGroup check>
+							<Label check>
+								<Input type="checkbox" name="remember"
+									innerRef={(input) => this.remember = input}  />
+								Remember me
+							</Label>
+						</FormGroup>
 
-					<Button type="submit" value="submit" color="primary">Login</Button>
-				</Form>
-			</ModalBody>
+						<Button type="submit" value="submit" color="primary">Login</Button>
+					</Form>
+				</ModalBody>
 
-		</Modal>
+			</Modal>
 
 		</React.Fragment>
 		);
