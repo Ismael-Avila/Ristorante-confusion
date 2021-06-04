@@ -12,13 +12,9 @@ import About from "./AboutComponent"
 
 import { connect } from 'react-redux';
 
-/*
-This main component needs to go and obtain that state from the Redux Store.
-So, to do that I need to connect this component to my Redux Store.
+//--importing our actions to be used in the main component 
+import { addComment } from '../redux/ActionCreators';
 
-Before to do that, I need to define mapSatateToProps
-
-*/
 
 const mapStateToProps = state => {
   return {
@@ -29,10 +25,17 @@ const mapStateToProps = state => {
   }
 }
 
-/*Inside this component (class Main extends Component) all the Redux state becomes available as "props"
-hence the mapStateToProps*/
+//Here, if we use the parentheses, then we are returning a java object.
+const mapDispatchToProps = dispatch => ({
+  
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
 
-/*So that, the main component is now responsible fore verything related to
+});
+
+/*Inside this component (class Main extends Component) all the Redux state becomes available as "props"
+hence the mapStateToProps and mapDispatchToProps*/
+
+/*So that, the main component is now responsible for everything related to
 the state of my application*/
 
 class Main extends Component{
@@ -41,20 +44,6 @@ class Main extends Component{
 
   }
 
-  /*
-  Note:
-
-  If you're not going to pass parameters to the components, then you can use the next
-  sintaxis:
-
-  <Route path='/home' component={()=><Home/>} /> or
-  <Route exact path='/contactus' component={Contact}/>
-
-  But if you need to pass parameters to the function, then you need to use this sintaxis:
-  <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
-
-
-  */
   render(){
 
     /*
@@ -64,11 +53,11 @@ class Main extends Component{
             comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />} />
     */
     const DishWithId = ({match}) => {
-      console.log(match.params.dishId);
-      console.log(match.params.dishId);
       return(
           <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
-            comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
+            comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
+            addComment={this.props.addComment}
+          />
       );
     };
 
@@ -113,4 +102,4 @@ class Main extends Component{
 
 */
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

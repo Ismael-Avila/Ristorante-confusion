@@ -14,7 +14,11 @@ import { Leaders } from './leaders';
 
 export const ConfigureStore = () => {
   const store = createStore(
-  	//We combine the simpler functions to generate the overall state
+  	/*
+  		We combine the simpler functions to generate the overall state
+  		or GLOBAL STATE
+  	*/
+
     combineReducers({
       dishes: Dishes,
       comments: Comments,
