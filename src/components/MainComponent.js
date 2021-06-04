@@ -12,9 +12,8 @@ import About from "./AboutComponent"
 
 import { connect } from 'react-redux';
 
-//--importing our actions to be used in the main component 
-import { addComment } from '../redux/ActionCreators';
-
+//--importing our actions to be used in the main component
+import { addComment, fetchDishes } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
   return {
@@ -27,9 +26,8 @@ const mapStateToProps = state => {
 
 //Here, if we use the parentheses, then we are returning a java object.
 const mapDispatchToProps = dispatch => ({
-  
-  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
-
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+  fetchDishes: () => { dispatch(fetchDishes())}
 });
 
 /*Inside this component (class Main extends Component) all the Redux state becomes available as "props"
@@ -44,6 +42,10 @@ class Main extends Component{
 
   }
 
+  componentDidMount() {
+    this.props.fetchDishes();
+  }
+
   render(){
 
     /*
@@ -54,7 +56,9 @@ class Main extends Component{
     */
     const DishWithId = ({match}) => {
       return(
-          <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
+          <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
+            isLoading={this.props.dishes.isLoading}
+            errMess={this.props.dishes.errMess}
             comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
             addComment={this.props.addComment}
           />
@@ -66,7 +70,9 @@ class Main extends Component{
         <Header/>
         <Switch>
           <Route path='/home' component={() => <Home 
-            dish={this.props.dishes.filter((dish) => dish.featured)[0]}
+            dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+            dishesLoading={this.props.dishes.isLoading}
+            dishesErrMess={this.props.dishes.errMess}
             promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
             leader={this.props.leaders.filter((leader) => leader.featured)[0]}
           />} />
