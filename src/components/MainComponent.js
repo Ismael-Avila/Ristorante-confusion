@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 
 //--importing our actions to be used in the main component
 import { addComment, fetchDishes } from '../redux/ActionCreators';
+import { actions } from 'react-redux-form'; //Actions for the form
 
 const mapStateToProps = state => {
   return {
@@ -24,10 +25,11 @@ const mapStateToProps = state => {
   }
 }
 
-//Here, if we use the parentheses, then we are returning a java object.
+//Where we are going to dispath all our reducers
 const mapDispatchToProps = dispatch => ({
   addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-  fetchDishes: () => { dispatch(fetchDishes())}
+  fetchDishes: () => { dispatch(fetchDishes())},
+  resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 });
 
 /*Inside this component (class Main extends Component) all the Redux state becomes available as "props"
@@ -48,12 +50,6 @@ class Main extends Component{
 
   render(){
 
-    /*
-    Other way to call DishDetail
-
-    <Route path='/menu/:dishId' component={({match})=> <DishDetail dish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
-            comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />} />
-    */
     const DishWithId = ({match}) => {
       return(
           <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
@@ -84,7 +80,7 @@ class Main extends Component{
 
           <Route path='/menu/:dishId' component={DishWithId} />
 
-          <Route exact path='/contactus' component={Contact}/>
+          <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
 
           <Redirect to="/home" />
         </Switch>
