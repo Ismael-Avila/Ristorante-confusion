@@ -7,6 +7,8 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 
 import { Loading } from './LoadingComponent';
 
+import { baseUrl } from '../shared/baseUrl';
+
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
@@ -122,12 +124,14 @@ class CommentForm extends Component{
 
 }
 
+
 function RenderDish({dish}){
+	//Old code before to include a server:
+	//<CardImg top src={dish.image} alt={dish.name} /> 
 	return(
 		<div className="col-12 col-md-5 m-1">
-			<Card>
-        <CardImg top src={dish.image} alt={dish.name} />  
-        
+			<Card> 
+        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
         <CardBody>
           <CardTitle>{dish.name}</CardTitle>
           <CardText>{dish.description}</CardText>

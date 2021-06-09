@@ -3,6 +3,8 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle} from 'react
 
 import { Loading } from './LoadingComponent';
 
+import { baseUrl } from '../shared/baseUrl';
+
 function RenderCard({item, isLoading, errMess}) {
   if (isLoading) {
     return(
@@ -16,9 +18,11 @@ function RenderCard({item, isLoading, errMess}) {
   }
 
   else{
+    //Old code before to include a server:
+    //<CardImg src={item.image} alt={item.name} />
     return(
     <Card>
-      <CardImg src={item.image} alt={item.name} />
+      <CardImg src={baseUrl + item.image} alt={item.name} />
       <CardBody>
       <CardTitle>{item.name}</CardTitle>
       {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle> : null }
@@ -34,6 +38,8 @@ function RenderCard({item, isLoading, errMess}) {
 
 
 const Home = (props)=>{
+  //Before to add other state variables
+  //<RenderCard item={props.promotion} />
 	return(
 		<div className="container">
       <div className="row align-items-start">
@@ -41,7 +47,7 @@ const Home = (props)=>{
           <RenderCard item={props.dish} isLoading={props.dishesLoading} errMess={props.dishesErrMess}  />
         </div>
         <div className="col-12 col-md m-1">
-          <RenderCard item={props.promotion} />
+          <RenderCard item={props.promotion} isLoading={props.promoLoading} errMess={props.promoErrMess} />
         </div>
         <div className="col-12 col-md m-1">
             <RenderCard item={props.leader} />
