@@ -1,20 +1,77 @@
 import * as ActionTypes from './ActionTypes';
 
-/*Now in Actioncreators.js file, we realize that we need to communicate with the servers.
-So I'm going to import the baseUrl from shared/baseUrl so that we can make use of it while
-configuring our server. */
 import { baseUrl } from '../shared/baseUrl';
 
+//==================================================================
+//                       POST COMMENTS
+//==================================================================
 
-export const addComment = (dishId, rating, author, comment) => ({
+
+export const addComment = (comment) => ({
   type: ActionTypes.ADD_COMMENT,
-  payload: {
+  payload: comment
+});
+
+export const postComment = (dishId, rating, author, comment) => (dispatch) => {
+
+  const newComment = {
     dishId: dishId,
     rating: rating,
     author: author,
     comment: comment
-  }
-});
+  };
+  /*
+  Now here, when you receive the comments, so the comment ID is automatically
+  created by the server, so that'll be all automatically included there.
+  */
+  newComment.date = new Date().toISOString();
+  
+
+  /*
+  So, that is how you're going to be posting the comment to the server there.
+  So, you will create a post message, send it to the server, and then when you
+  receive the response, that response should be the updated comment, and that'll
+  be pushed into the redux store by doing the dispatch here. If there is an error,
+  you will just print the error in the console log and then pop up an alert message
+  for the user.
+  */
+
+
+  return fetch(baseUrl + 'comments', {
+    method: "POST",
+    body: JSON.stringify(newComment),
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "same-origin"
+  })
+  /*
+  So, as you can see, when you post a comment, you will first send the comment
+  over to the server, and if the comment is successfully added on the server
+  site and the server sends back a success of the posting of the comment, only
+  then you will add it to the redux store. So, that way, you ensure that the
+  comment posted by the user is actually reflected by changing the data on the
+  server site before even adding it to that redux store. So, that's the way I
+  am arranging this in this case. 
+  */
+
+  .then(response => {
+    if (response.ok) {
+      return response;
+    }
+    else {
+      var error = new Error('Error ' + response.status + ': ' + response.statusText);
+      error.response = response;
+      throw error;}
+    },
+    error => {
+      throw error;
+    })
+    .then(response => response.json())
+    .then(response => dispatch(addComment(response)))
+    .catch(error =>  { console.log('post comments', error.message); alert('Your comment could not be posted\nError: '+error.message); });
+};
+
 
 //==================================================================
 //                       Dishes

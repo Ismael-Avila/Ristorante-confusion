@@ -35,7 +35,7 @@ class CommentForm extends Component{
 
 	handleSubmit(values) {
 		//this.toggleModal();
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+    this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
 
@@ -142,7 +142,7 @@ function RenderDish({dish}){
 	);
 }
 
-function RenderComments({dishId, comments, addComment}){
+function RenderComments({dishId, comments, postComment}){
 	
 	if(comments != null){
 			return(
@@ -160,7 +160,7 @@ function RenderComments({dishId, comments, addComment}){
 							);
 						})}
 					</ul>
-					<CommentForm dishId={dishId} addComment={addComment}/>
+					<CommentForm dishId={dishId} postComment={postComment}/>
 				</div>
 				
 			);
@@ -215,7 +215,7 @@ const DishDetail = (props)=>{
 					<RenderDish dish ={props.dish}/>
 					<RenderComments dishId = {props.dish.id}
 						comments ={props.comments.filter((comment)=> comment.dishId === props.dish.id)}
-						addComment={props.addComment}
+						postComment={props.postComment}
 					/>
 				</div>
 			</div>
