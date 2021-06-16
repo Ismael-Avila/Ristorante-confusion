@@ -20,21 +20,9 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
     author: author,
     comment: comment
   };
-  /*
-  Now here, when you receive the comments, so the comment ID is automatically
-  created by the server, so that'll be all automatically included there.
-  */
+
   newComment.date = new Date().toISOString();
   
-
-  /*
-  So, that is how you're going to be posting the comment to the server there.
-  So, you will create a post message, send it to the server, and then when you
-  receive the response, that response should be the updated comment, and that'll
-  be pushed into the redux store by doing the dispatch here. If there is an error,
-  you will just print the error in the console log and then pop up an alert message
-  for the user.
-  */
 
 
   return fetch(baseUrl + 'comments', {
@@ -45,15 +33,7 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
     },
     credentials: "same-origin"
   })
-  /*
-  So, as you can see, when you post a comment, you will first send the comment
-  over to the server, and if the comment is successfully added on the server
-  site and the server sends back a success of the posting of the comment, only
-  then you will add it to the redux store. So, that way, you ensure that the
-  comment posted by the user is actually reflected by changing the data on the
-  server site before even adding it to that redux store. So, that's the way I
-  am arranging this in this case. 
-  */
+
 
   .then(response => {
     if (response.ok) {
@@ -71,6 +51,53 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
     .then(response => dispatch(addComment(response)))
     .catch(error =>  { console.log('post comments', error.message); alert('Your comment could not be posted\nError: '+error.message); });
 };
+
+//==================================================================
+//                       POST FEEDBACK
+//==================================================================
+
+
+export const postFeedback = (firstname, lastname, telnum, email, agree, contactType, message) => (dispatch) => {
+
+  const newFeedback = {
+    firstname: firstname,
+    rating: lastname,
+    author: telnum,
+    comment: email,
+    agree:agree,
+    contactType:contactType,
+    message:message
+  };
+
+  newFeedback.date = new Date().toISOString();
+  
+
+
+  return fetch(baseUrl + 'feedback', {
+    method: "POST",
+    body: JSON.stringify(newFeedback),
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "same-origin"
+  })
+
+
+  .then(response => {
+    if (response.ok) {
+      return response;
+    }
+    else {
+      var error = new Error('Error ' + response.status + ': ' + response.statusText);
+      error.response = response;
+      throw error;}
+    },
+    error => {
+      throw error;
+    })
+    .catch(error =>  { console.log('post feedback', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
+};
+
 
 
 //==================================================================
@@ -223,4 +250,46 @@ export const promosFailed = (errmess) => ({
 export const addPromos = (promos) => ({
   type: ActionTypes.ADD_PROMOS,
   payload: promos
+});
+
+//==================================================================
+//                       Leaders
+//==================================================================
+
+export const fetchLeaders = () => (dispatch) => {
+    
+  dispatch(leadersLoading());
+
+  return fetch(baseUrl + 'leaders')
+    .then(response => {
+      if (response.ok){
+      	return response;
+      }
+      else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;}
+    	},
+      error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then(response => response.json())
+    .then(leaders => dispatch(addLeaders(leaders)))
+    .catch(error => dispatch(leadersFailed(error.message)));
+}
+
+export const leadersLoading = () => ({
+  type: ActionTypes.LEADERS_LOADING
+});
+
+export const leadersFailed = (errmess) => ({
+  type: ActionTypes.LEADERS_FAILED,
+  payload: errmess
+});
+
+export const addLeaders = (leaders) => ({
+  type: ActionTypes.ADD_LEADERS,
+  payload: leaders
 });

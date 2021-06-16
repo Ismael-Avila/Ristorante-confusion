@@ -18,10 +18,11 @@ function RenderCard({item, isLoading, errMess}) {
       <h4>{errMess}</h4>
     );
   }
-
   else{
     //Old code before to include a server:
     //<CardImg src={item.image} alt={item.name} />
+    //console.log(item)
+    //console.log(baseUrl)
     return(
     <Card>
       <FadeTransform in transformProps={{ exitTransform: 'scale(0.5) translateY(-50%)'}}>
@@ -54,7 +55,7 @@ const Home = (props)=>{
           <RenderCard item={props.promotion} isLoading={props.promoLoading} errMess={props.promoErrMess} />
         </div>
         <div className="col-12 col-md m-1">
-            <RenderCard item={props.leader} />
+          <RenderCard item={props.leader} isLoading={props.leadersLoading} errMess={props.leadersErrMess}/>
         </div>
       </div>
     </div>
