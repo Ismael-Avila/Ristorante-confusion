@@ -6,8 +6,7 @@ import { baseUrl } from '../shared/baseUrl';  //To get the images from the serve
 
 
 function RenderMenuItem({dish, selectedDishFunction}){
-  //Old code before to include a server:
-  //<CardImg width="100%" src={dish.image} alt={dish.name} />
+  
   return(
     <Card key={dish.id}>
       <Link to={`/menu/${dish.id}`}>
@@ -20,11 +19,6 @@ function RenderMenuItem({dish, selectedDishFunction}){
   );
 }
 
-
-/*
-  In this function you're receiving data from MainComponent.js when this function is
-  called.
-*/
 
 const Menu = (props) =>{
 

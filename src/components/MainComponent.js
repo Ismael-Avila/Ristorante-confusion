@@ -43,7 +43,6 @@ const mapDispatchToProps = dispatch => ({
 
 /*Inside this component (class Main extends Component) all the Redux state becomes available as "props"
 hence the mapStateToProps and mapDispatchToProps*/
-
 /*So that, the main component is now responsible for everything related to
 the state of my application*/
 

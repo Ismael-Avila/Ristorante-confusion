@@ -6,35 +6,26 @@ import { Control, Form, Errors} from 'react-redux-form';
 /*
   Definition of our validators
 */
-
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
-/*
-  Another way to declare maxLength and minLength
-  const maxLength_2 = (val)=> !(val) || (val.length<=15);
-  const minLength_2 = (val) => val && (val.length >= 3);
-*/
 
 class Contact extends Component{
 
   constructor(props) {
     super(props);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-      
+    this.handleSubmit = this.handleSubmit.bind(this);   
   }
-
 
   handleSubmit(values) {
     console.log('Current State is: ' + JSON.stringify(values));
     this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email, values.agree, values.contactType, values.message)
     alert('Current State is: ' + JSON.stringify(values));
     this.props.resetFeedbackForm();
-    // event.preventDefault();
   }
 
 

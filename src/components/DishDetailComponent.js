@@ -11,6 +11,9 @@ import { baseUrl } from '../shared/baseUrl';
 
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
+/*
+  Definition of our validators
+*/
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
@@ -36,7 +39,6 @@ class CommentForm extends Component{
 	}
 
 	handleSubmit(values) {
-		//this.toggleModal();
     this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
@@ -128,8 +130,7 @@ class CommentForm extends Component{
 
 
 function RenderDish({dish}){
-	//Old code before to include a server:
-	//<CardImg top src={dish.image} alt={dish.name} /> 
+	
 	return(
 		<div className="col-12 col-md-5 m-1">
 			<FadeTransform in transformProps={{ exitTransform: 'scale(0.5) translateY(-50%)'}}>

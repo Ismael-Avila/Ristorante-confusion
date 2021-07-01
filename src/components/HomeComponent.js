@@ -19,10 +19,6 @@ function RenderCard({item, isLoading, errMess}) {
     );
   }
   else{
-    //Old code before to include a server:
-    //<CardImg src={item.image} alt={item.name} />
-    //console.log(item)
-    //console.log(baseUrl)
     return(
     <Card>
       <FadeTransform in transformProps={{ exitTransform: 'scale(0.5) translateY(-50%)'}}>
@@ -40,11 +36,8 @@ function RenderCard({item, isLoading, errMess}) {
 }
 
 
-
-
 const Home = (props)=>{
-  //Before to add other state variables
-  //<RenderCard item={props.promotion} />
+
 	return(
 		<div className="container">
       <div className="row align-items-start">
